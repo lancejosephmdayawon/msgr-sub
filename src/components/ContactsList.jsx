@@ -20,7 +20,7 @@ export default function ContactsList({ onSelectContact }) {
   }, []);
 
   return (
-    <div className="w-full md:w-1/3 border-r border-gray-200 p-4 overflow-y-auto">
+    <div className="w-full md:w-3/3 border-r border-transparent p-4 overflow-y-auto">
       <h2 className="text-xl font-semibold mb-3">Contacts</h2>
       {contacts.map(user => (
         <div

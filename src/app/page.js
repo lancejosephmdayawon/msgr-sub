@@ -4,7 +4,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../utils/firebase";
 import { useRouter } from "next/navigation";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -13,23 +13,25 @@ export default function LoginPage() {
 
   const login = async () => {
     try {
-      // 1️⃣ Sign in the user
+      // 1️⃣ Sign in
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // 2️⃣ Save or update user data in Firestore
-      await setDoc(
-        doc(db, "users", user.uid),
-        {
+      // 2️⃣ Check if user doc exists
+      const userRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(userRef);
+
+      // 3️⃣ Only create the doc if it's new
+      if (!docSnap.exists()) {
+        await setDoc(userRef, {
           uid: user.uid,
-          displayName: user.displayName || "User",
+          displayName: user.displayName || user.email.split("@")[0],
           email: user.email,
           photoURL: user.photoURL || "",
-        },
-        { merge: true }
-      );
+        });
+      }
 
-      // 3️⃣ Redirect to chat
+      // 4️⃣ Redirect to chat
       router.push("/chat");
     } catch (err) {
       alert(err.message);

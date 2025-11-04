@@ -24,7 +24,7 @@ export default function Navbar() {
   return (
     <nav className="bg-blue-600 text-white px-4 py-3 flex justify-between items-center">
       <div className="font-bold text-lg">
-        <Link href="/">Msgr Sub</Link>
+        <Link href="/">Messenger Neptify</Link>
       </div>
       <div className="flex gap-4">
         {user ? (
@@ -36,12 +36,6 @@ export default function Navbar() {
             >
               Logout
             </button>
-            <Link
-              href="/chat"
-              className="bg-green-500 px-3 py-1 rounded hover:bg-green-600"
-            >
-              Chat
-            </Link>
           </>
         ) : (
           <Link
