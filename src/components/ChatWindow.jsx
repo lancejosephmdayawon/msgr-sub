@@ -68,7 +68,7 @@ export default function ChatWindow({ contact, onBack }) {
         {/* 🔙 Back (mobile only) */}
         <button
           onClick={onBack}
-          className="md:hidden p-2 rounded-full hover:bg-gray-100 transition"
+          className="md:hidden p-3 rounded-full hover:bg-gray-100 transition text-2xl"
         >
           ⬅
         </button>
@@ -88,12 +88,10 @@ export default function ChatWindow({ contact, onBack }) {
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`flex ${
-              msg.senderId === currentUser.uid ? "justify-end" : "justify-start"
-            }`}
+            className={`flex ${msg.senderId === currentUser.uid ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`px-4 py-2 rounded-2xl max-w-[75%] text-sm ${
+              className={`px-4 py-2 rounded-2xl max-w-[75%] text-sm break-words ${
                 msg.senderId === currentUser.uid
                   ? "bg-blue-500 text-white"
                   : "bg-gray-200 text-gray-900"
@@ -105,6 +103,7 @@ export default function ChatWindow({ contact, onBack }) {
         ))}
         <div ref={bottomRef}></div>
       </div>
+
 
       {/* INPUT */}
       <div className="p-4 border-t flex items-center gap-2 bg-white">
